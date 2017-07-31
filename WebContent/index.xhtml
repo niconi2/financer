@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:body>
+	<h:form>
+		<p>
+			Vorname:
+			<h:inputText value="#{personenManager.vorname}">			
+			</h:inputText>
+		</p>
+		<p>
+			Nachname:
+			<h:inputText value="#{personenManager.nachname}">			
+			</h:inputText>
+		</p>
+		<p>
+			Personalnummer:
+			<h:inputText value="#{personenManager.personalNummer}">			
+			</h:inputText>
+		</p>
+	
+		<h:selectOneRadio value="#{personenManager.auswahl}">
+			<f:selectItem itemLabel="Tabelle" itemValue="Tabelle"></f:selectItem>
+			<f:selectItem itemLabel="Zusammenfassung" itemValue="Zusammenfassung"></f:selectItem>
+		</h:selectOneRadio>
+		
+		
+		<h:commandButton action="#{personenManager.anzeige}" value="Anzeigen"></h:commandButton>
+		
+	</h:form>
+</h:body>
+
+</html>
