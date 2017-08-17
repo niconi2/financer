@@ -1,11 +1,15 @@
 package servlet;
 
+import java.sql.*;
+
 import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import help.Person;
+import help.Datenbank;
+
 
 @ManagedBean
 @SessionScoped
@@ -20,7 +24,10 @@ public class PersonenManager {
 	private ArrayList<Person> personenListe = new ArrayList<Person>();
 	
 	
+
+	
 	public String anzeige(){
+		
 		
 		
 		//Person anlegen und die Werte aus den Parametern anlegen.
@@ -29,6 +36,38 @@ public class PersonenManager {
 		p.setNachname(nachname);
 		p.setPersonalNummer(personalNummer);
 		p.setVorname(vorname);
+		
+		String pers = String.valueOf(personalNummer);
+		
+		System.out.println("Position1");
+		
+		Datenbank db = new Datenbank();
+		
+		String befehl = "INSERT INTO person (Personalnummer, Vorname, Nachname) VALUES ("
+				+ pers
+				+ ", '"
+				+ vorname
+				+"', '"
+				+ nachname
+				+ "');";;
+		
+		db.senden(befehl);
+
+		ResultSet rs;
+		
+		rs = db.empfangen("SELECT * FROM person;");
+		
+		try {
+			while (rs.next()) {
+				System.out.println(rs.getString("Nachname"));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
 		
 		personenListe.add(p);
 		
@@ -46,9 +85,10 @@ public class PersonenManager {
 		
 }
 	
-	
-	
-	
+
+
+
+
 	public String getVorname() {
 		return vorname;
 	}
@@ -102,8 +142,6 @@ public class PersonenManager {
 		this.personenListe = personenListe;
 	}
 	
-	
-	
-	
+
 
 }
