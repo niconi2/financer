@@ -20,18 +20,24 @@
 			</h:inputText>
 		</p>
 		<p>
-			Personalnummer:
-			<h:inputText value="#{personenManager.personalNummer}">			
+			Email-Adresse:
+			<h:inputText value="#{personenManager.emailadresse}">			
 			</h:inputText>
 		</p>
-	
+		<p>
+			Währung:
+			<h:inputText value="#{personenManager.waehrungskuerzel}">			
+			</h:inputText>
+		</p>
+		
+
 		<h:selectOneRadio value="#{personenManager.auswahl}">
 			<f:selectItem itemLabel="Tabelle" itemValue="Tabelle"></f:selectItem>
 			<f:selectItem itemLabel="Zusammenfassung" itemValue="Zusammenfassung"></f:selectItem>
 		</h:selectOneRadio>
 		
 		
-		<h:commandButton action="#{personenManager.anzeige}" value="Anzeigen"></h:commandButton>
+		<h:commandButton action="#{personenManager.speichern}" value="Speichern"></h:commandButton>
 		
 	</h:form>
 </h:body>

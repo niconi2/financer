@@ -1,5 +1,6 @@
 package help;
 
+
 import servlet.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +14,38 @@ public class Person {
 	
 	private String vorname;
 	
-	private int personalNummer;
+	private int userID;
 	
+	private String emailadresse;
+	
+	private String waehrungskuerzel;
+	
+	private String pin;
+	
+
+	public String getEmailadresse() {
+		return emailadresse;
+	}
+
+	public void setEmailadresse(String emailadresse) {
+		this.emailadresse = emailadresse;
+	}
+
+	public String getWaehrungskuerzel() {
+		return waehrungskuerzel;
+	}
+
+	public void setWaehrungskuerzel(String waehrungskuerzel) {
+		this.waehrungskuerzel = waehrungskuerzel;
+	}
+
+	public String getPin() {
+		return pin;
+	}
+
+	public void setPin(String pin) {
+		this.pin = pin;
+	}
 
 	public void setNachname(String nachname) {
 		this.nachname = nachname;
@@ -32,12 +63,12 @@ public class Person {
 		return vorname;
 	}
 
-	public int getPersonalNummer() {
-		return personalNummer;
+	public int getUserID() {
+		return userID;
 	}
 
-	public void setPersonalNummer(int personalNummer) {
-		this.personalNummer = personalNummer;
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 
 }

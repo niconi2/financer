@@ -6,53 +6,23 @@ public class Test {
 
 	public static void main(String[] args) {
 		
+		int userID = 0;
+		
 		Datenbank db = new Datenbank();
 		
-		//Connection con = db.getCon();
+		ResultSet rs = db.empfangen("SELECT COUNT(userID) FROM user");
 		
-		int pers = 0;
-		String nachname = "Mustermann";
-		String vorname = "Max";
-		
-			
-			try{
-			
-			//Statement stmt = con.createStatement();
-				
-			//druckeNachname(stmt);
-			
-			String befehl = "INSERT INTO person (Personalnummer, Vorname, Nachname) VALUES ("
-					+ pers
-					+ ", '"
-					+ vorname
-					+ "', '"
-					+ nachname
-					+ "');";;
-				
-					db.senden(befehl);
-			
-
-			//PreparedStatement ps = con.prepareStatement(befehl);
-			
-			//ps.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+		try {
+			rs.next();
+			userID = (Integer.parseInt(rs.getString("COUNT(UserID)")));
+			System.out.println(userID);
 		}
+		catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println(userID);
 		
-
-		
-
-			}
-
-	private static void druckeNachname(Statement stmt) throws SQLException {
-		ResultSet datenmenge;
-		
-		datenmenge = stmt.executeQuery("SELECT * FROM person;");
-		
-		while (datenmenge.next()) {
-			System.out.println(datenmenge.getString("Nachname"));
-			
 		}
 	}
-	}
+	

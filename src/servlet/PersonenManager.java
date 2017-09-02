@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import help.Person;
+import help.SendMail;
 import help.Datenbank;
 
 
@@ -18,44 +19,61 @@ public class PersonenManager {
 	
 	private String vorname;
 	private String nachname;
-	private int personalNummer;
+	private int userID;
+	private String emailadresse;
+	private String waehrungskuerzel;
+	private String pin;
 	private String auswahl;
 	
+
+
 	private ArrayList<Person> personenListe = new ArrayList<Person>();
-	
-	
 
 	
-	public String anzeige(){
+	public String speichern(){
 		
-		
+		//Datenbank initialisieren
+		Datenbank db = new Datenbank();
 		
 		//Person anlegen und die Werte aus den Parametern anlegen.
 		Person p = new Person();
 		
-		p.setNachname(nachname);
-		p.setPersonalNummer(personalNummer);
-		p.setVorname(vorname);
-		
-		String pers = String.valueOf(personalNummer);
-		
-		System.out.println("Position1");
-		
-		Datenbank db = new Datenbank();
-		
-		String befehl = "INSERT INTO person (Personalnummer, Vorname, Nachname) VALUES ("
-				+ pers
-				+ ", '"
-				+ vorname
-				+"', '"
-				+ nachname
-				+ "');";;
-		
-		db.senden(befehl);
 
-		ResultSet rs;
+
+		p.setNachname(nachname);
+		p.setVorname(vorname);
+		p.setEmailadresse(emailadresse);
 		
-		rs = db.empfangen("SELECT * FROM person;");
+		ResultSet rs = db.empfangen("SELECT MAX(userID) FROM user");
+		try {
+			rs.next();
+			p.setUserID(Integer.parseInt(rs.getString("MAX(UserID)"))+1);
+			System.out.println(p.getUserID());
+			
+		}  catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			
+		}
+		
+		p.setWaehrungskuerzel(waehrungskuerzel);
+		
+		String pers = String.valueOf(p.getUserID());
+		
+		System.out.println("Position1 "+pers);
+		
+		
+		versendeWillkommensEmail();
+		
+	
+		
+		speichereInDb(db);
+		
+		rs = db.empfangen("SELECT * FROM user;");
+		
+		
+		
+		
 		
 		try {
 			while (rs.next()) {
@@ -75,7 +93,8 @@ public class PersonenManager {
 		
 		vorname="";
 		nachname="";
-		personalNummer++;
+		userID++;
+
 		
 		if (auswahl.equals("Tabelle")) {
 			return "Tabelle";
@@ -84,11 +103,49 @@ public class PersonenManager {
 		}
 		
 }
+
+
+
+
+
+
+	private void speichereInDb(Datenbank db) {
+		String befehl = "INSERT INTO user (UserID, Vorname, Nachname, EMailAdresse, WaehrungsKuerzel) VALUES ("
+				+ "NULL"
+				+ ", '"
+				+ vorname
+				+ "', '"
+				+ nachname
+				+ "', '"
+				+ emailadresse
+				+ "', '"
+				+ waehrungskuerzel
+				+ "');";;
+		
+		db.senden(befehl);
+	}
+
+
+
+
+
+
+	private void versendeWillkommensEmail() {
+		SendMail mail = new SendMail();
+		
+		String sub = "Willkommen "+vorname;
+		String text = "Herzlich Willkommen "+vorname+" "+nachname+"!"
+				+ "\n\n Schön das du dich bei Financer2020 angemeldet hast!";
+		
+		
+		mail.send(getEmailadresse(), sub, text);
+	}
 	
 
 
 
 
+	
 	public String getVorname() {
 		return vorname;
 	}
@@ -101,32 +158,51 @@ public class PersonenManager {
 	public void setNachname(String nachname) {
 		this.nachname = nachname;
 	}
-	public int getPersonalnummer() {
-		return personalNummer;
-	}
-	public void setPersonalnummer(int personalnummer) {
-		this.personalNummer = personalnummer;
-	}
+
 	public String getAuswahl() {
 		return auswahl;
 	}
 	public void setAuswahl(String auswahl) {
 		this.auswahl = auswahl;
 	}
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
 
 
+	public String getEmailadresse() {
+		return emailadresse;
+	}
+
+	public void setEmailadresse(String emailadresse) {
+		this.emailadresse = emailadresse;
+	}
+
+	public String getWaehrungskuerzel() {
+		return waehrungskuerzel;
+	}
 
 
-	public int getPersonalNummer() {
-		return personalNummer;
+	public void setWaehrungskuerzel(String waehrungskuerzel) {
+		this.waehrungskuerzel = waehrungskuerzel;
+	}
+
+	public String getPin() {
+		return pin;
+	}
+
+	public void setPin(String pin) {
+		this.pin = pin;
 	}
 
 
 
 
-	public void setPersonalNummer(int personalNummer) {
-		this.personalNummer = personalNummer;
-	}
+
 
 
 
