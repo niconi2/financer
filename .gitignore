@@ -137,3 +137,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/java,macos,eclipse,windows,java-web
+/build/
