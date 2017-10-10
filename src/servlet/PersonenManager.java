@@ -63,7 +63,7 @@ public class PersonenManager {
 		System.out.println("Position1 "+pers);
 		
 		
-		versendeWillkommensEmail();
+		//versendeWillkommensEmail();
 		
 	
 		
@@ -135,7 +135,7 @@ public class PersonenManager {
 		
 		String sub = "Willkommen "+vorname;
 		String text = "Herzlich Willkommen "+vorname+" "+nachname+"!"
-				+ "\n\n Schön das du dich bei Financer2020 angemeldet hast!";
+				+ "\n\n Schï¿½n das du dich bei Financer2020 angemeldet hast!";
 		
 		
 		mail.send(getEmailadresse(), sub, text);
