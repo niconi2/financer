@@ -63,7 +63,7 @@ public class PersonenManager {
 		System.out.println("Position1 "+pers);
 		
 		
-		versendeWillkommensEmail();
+		//versendeWillkommensEmail();
 		
 	
 		
